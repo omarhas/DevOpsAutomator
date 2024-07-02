@@ -1,38 +1,55 @@
-Role Name
-=========
+## Table of Contents  <!-- omit in toc -->
 
-A brief description of the role goes here.
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Usage](#usage)
 
-Requirements
-------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+## Introduction <a name="introduction"></a>
+This playbook is used to automate Docker installation 
 
-Role Variables
---------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+## Installation <a name="installation"></a>
+Installation
+To set up Ansible on your machine, follow these steps:
 
-Dependencies
-------------
+Installation Guide:  https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+Verify Installation: Once Ansible is installed, verify its installation by running the following command in your terminal:
 
-Example Playbook
-----------------
+ansible --version
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+Download the Playbook: After confirming Ansible is installed, download the playbook to proceed with your automation tasks.
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+By following these steps, you'll have Ansible set up on your machine, ready to automate your tasks efficiently.
 
-License
--------
 
-BSD
 
-Author Information
-------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+
+## Usage <a name="usage"></a>
+
+### Installing Docker with Ansible
+Prerequisites:
+
+Before proceeding, ensure you have:
+
+sudo (temporary admin access) permissions to install software on the target machine.
+
+Steps
+
+1- Update Ansible Configuration:
+
+Open the repo_root/runner-setup/ansible-automation/ansible.cfg file and replace the remote_user value with your username.
+
+Configure Playbook:
+
+Navigate to repo_root/runner-setup/ansible-automation/main.yaml and add the install-docker role under the roles section then save your changes and exit.
+
+2- Execute the Playbook:
+
+cd to repo_root/runner-setup/ansible-automation and run the playbook using the following command:
+
+ansible-playbook main.yaml
+
+Then it will prompt you for your password, and you must enter it.
