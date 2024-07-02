@@ -34,21 +34,21 @@ Prerequisites:
 
 Before proceeding, ensure you have:
 
-sudo (temporary admin access) permissions to install software on the target machine.
+sudo permissions to install software on the target machine.
 
 Steps
 
 1- Update Ansible Configuration:
 
-Open the repo_root/runner-setup/ansible-automation/ansible.cfg file and replace the remote_user value with your username.
+Open the repo_root/Automation-with-Ansible/ansible.cfg file and replace the remote_user value with your username.
 
 Configure Playbook:
 
-Navigate to repo_root/runner-setup/ansible-automation/main.yaml and add the install-docker role under the roles section then save your changes and exit.
+Navigate to repo_root/Automation-with-Ansible/main.yaml and add the install-docker role under the roles section then save your changes and exit.
 
 2- Execute the Playbook:
 
-cd to repo_root/runner-setup/ansible-automation and run the playbook using the following command:
+cd to  repo_root/Automation-with-Ansible and run the playbook using the following command:
 
 ansible-playbook main.yaml
 
