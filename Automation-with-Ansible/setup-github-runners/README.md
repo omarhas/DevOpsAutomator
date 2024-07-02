@@ -41,11 +41,11 @@ In the ansible.cfg file, replace the remote_user value with your own username.
 
 1- Configure Playbook:
 
-Open repo_root/runner-setup/ansible-automation/main.yaml and add the setup-github-runners role under the roles section.
+Open  repo_root/Automation-with-Ansible/main.yaml and add the setup-github-runners role under the roles section.
 
 2- Configure Runner Settings:
 
-Navigate to repo_root/runner-setup/ansible-automation/setup-github-runners/vars/main.yml and customize the following variables:
+Navigate to  repo_root/Automation-with-Ansible/setup-github-runners/vars/main.yml and customize the following variables:
 
 url: Replace with your GitHub repository URL.
 
