@@ -1,3 +1,2 @@
 # DevOpsAutomator
-DevOpsAutomator is a comprehensive repository designed to automate software installation and deployment using a combination of powerful tools such as Ansible, Python, and GitHub Actions. This project aims to streamline the deployment process, making it efficient and consistent across various environments.
-
+This repo is used to automate all tasks with ansible , if you want to install software : docker for example you just need to go to the repo with the name install-docker and follow the documentation in Readme file 
