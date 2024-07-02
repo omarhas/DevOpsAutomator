@@ -1,0 +1,11 @@
+---
+
+- name: install and configure docker
+
+  hosts: localhost
+
+  become: true
+
+  roles:
+
+    - role: ./install-docker

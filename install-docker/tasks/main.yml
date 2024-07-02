@@ -1,0 +1,91 @@
+---
+# tasks file for install-docker
+- name: remove docker old versions if exist
+  package:
+    name: "{{ item }}"
+    state: absent
+  loop:
+    - docker
+    - docker-engine
+    - docker.io
+    - containerd
+    - runc
+- name: Clean up remaining Docker files
+  file:
+      path: "{{ item }}"
+      state: absent
+      
+  loop:
+    - /var/lib/docker
+    - /etc/docker
+    - /var/run/docker.sock
+    - /etc/apt/sources.list.d/docker.list
+- name: update packages
+  apt:
+    update_cache: yes
+
+- name: install required packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+      - ca-certificates
+      - curl
+
+- name: install docutils
+  pip:
+    name: docutils
+
+- name: create dir for docker gpg key
+  file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: "0755"
+
+- name: download docker gpg key
+  get_url:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    dest: /etc/apt/keyrings/docker.asc
+    mode: "0644"
+
+- name: set permission for docker gpg key - only root have access to the key
+  file:
+    path: /etc/apt/keyrings/docker.asc
+    mode: "0444"
+
+- name: get ubuntu codename
+  shell: lsb_release -cs
+  register: ubuntu_codename
+
+- name: get architecture 
+  shell: dpkg --print-architecture
+  register: architecture 
+
+- name: add docker repo to sources.list
+  lineinfile:
+    path: /etc/apt/sources.list.d/docker.list
+    line: "deb [arch={{ architecture.stdout }} signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ubuntu_codename.stdout }} stable"
+    create: yes
+
+- name: update packages after adding repos
+  apt:
+    update_cache: yes
+
+- name: install docker last version
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+    - docker-buildx-plugin
+    - docker-compose-plugin
+
+- name: adding docker user to docker group
+  user:
+    name: "{{ ansible_user }}"
+    groups: docker
+    append: yes
+
+
