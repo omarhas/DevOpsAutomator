@@ -1,0 +1,44 @@
+---
+- name: Install necessary dependencies
+  apt:
+     name: curl
+     state: present
+
+- name: create directory
+  file:
+    path: "{{ runner_install_location }}"
+    state: directory
+  when: not runner_install_location is exists
+
+- name: Download GitHub Runner
+  get_url:
+    url: "https://github.com/actions/runner/releases/download/v2.316.1/actions-runner-linux-x64-2.316.1.tar.gz"
+    dest: "{{ runner_install_location }}/runner.tar.gz"
+
+- name: Extract the installer
+  unarchive:
+    src: "{{ runner_install_location }}/runner.tar.gz"
+    dest: "{{ runner_install_location }}"
+    remote_src: yes
+
+- name: change location
+  shell: cd "{{ runner_install_location }}"
+
+- name: add permission to user
+  file:
+    path: "{{ runner_install_location }}"
+    owner: "{{ ansible_user }}"
+    group: "{{  ansible_user }}"
+    state: directory
+- name: configure runner
+  shell: "{{ runner_install_location }}/config.sh --url {{ url }} --token {{ token }} --name {{runner_name}} --labels {{ custom_labels }} "
+  become: no
+  ignore_errors: yes
+
+- name: install runers as service
+  shell: cd {{ runner_install_location }} && ./svc.sh install
+  when: daemon_setup
+
+- name: Start the runner
+  shell: cd {{ runner_install_location }} && ./svc.sh start
+  when: daemon_setup

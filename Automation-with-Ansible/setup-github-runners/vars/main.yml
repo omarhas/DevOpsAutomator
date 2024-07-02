@@ -1,0 +1,8 @@
+---
+# vars file for setup-github-runners
+url: put ut repos url where you want to setup ur runner # exmaples "https://github.com/omarhas/DevOpsAutomator" 
+token: put your token here #example : "BBJkM3ZDNGSWfjkldsfhdjV4XgfdIDGINH6I"
+runner_name: "my-runner"
+custom_labels: "tag1,tag2"
+runner_install_location: "/runners/actions-runner"
+daemon_setup: true
