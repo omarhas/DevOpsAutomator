@@ -82,9 +82,13 @@
     - docker-buildx-plugin
     - docker-compose-plugin
 
+- name: get current user name
+  shell: whoami
+  become: no
+  register: user-name
 - name: adding docker user to docker group
   user:
-    name: "{{ ansible_user }}"
+    name: "{{ user-name.stdout }}"
     groups: docker
     append: yes
 
